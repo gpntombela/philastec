@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Philas</title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="app.animations.css" />
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="app.animations.js"></script>
+    <script src="core/core.module.js"></script>
+    <script src="core/checkmark/checkmark.filter.js"></script>
+    <script src="core/phone/phone.module.js"></script>
+    <script src="core/phone/phone.service.js"></script>
+    <script src="phone-list/phone-list.module.js"></script>
+    <script src="phone-list/phone-list.component.js"></script>
+    <script src="phone-detail/phone-detail.module.js"></script>
+    <script src="phone-detail/phone-detail.component.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <a href="#!/register" class="btn btn-link">Home</a>||<a href="#!/register" class="btn btn-link">Register</a>
+           <h2>Register</h2>
+    <form name="form" ng-submit="vm.login()" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.Name.$dirty && form.name.$error.required }">
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username" class="form-control" ng-model="vm.name" required />
+            <span ng-show="form.Name.$dirty && form.Name.$error.required" class="help-block">name is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.Surname.$dirty && form.Surname.$error.required }">
+            <label for="password">Surname</label>
+            <input type="password" name="password" id="password" class="form-control" ng-model="vm.Surname" required />
+            <span ng-show="form.password.$dirty && form.Surname.$error.required" class="help-block">Surname is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.Surname.$dirty && form.Surname.$error.required }">
+            <label for="password">Country :</label>
+            <select>
+                <option>South Africa</option>
+                <option>Zimbabwe</option>
+                <option>Brazil</option>
+                <option>America</option>
+                <option>Spain</option>
+            </select>
+            <span ng-show="form.country.$dirty && form.country.$error.required" class="help-block">Select please</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="pure-button pure-button-primary" ng-click="save()">Save</button>
+         <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            
+        </div>
+        
+    </form>
+           <h2>View table</h2>
+            <table class="pure-table">
+                <thead>
+                <tr>
+                    <th class="selection-column"></th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Country</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr ng-repeat="name in vm.name | excludeDeleted | limitTo : 10" tt-editable-row rowValue="name"
+                    ng-class="{'pure-table-odd': $index % 2 == 1, 'pure-table-even': $index % 2 == 0}">
+
+                    <td class="selection-column">
+                        <input type="checkbox" ng-model="meal.selected" ng-click="selectionChanged()">
+                    </td>
+
+                       <td tt-editable-cell value="name.text" is-new="name.text">
+                        <input tt-date-time-picker tt-cell-field type="text"
+                               ng-model="name.text">
+                    </td>
+
+                    <td tt-editable-cell value="surname.texts" is-new="surname.new">
+                        <input type="text" tt-cell-field ng-model="surname.texts">
+                    </td>
+
+                    <td tt-editable-cell value="country.cnt" is-new="country.new">
+                        <input type="text" tt-cell-field tt-numeric-field ng-model="country.cnt">
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+    </body>
+</html>
