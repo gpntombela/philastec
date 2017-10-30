@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" ng-app="phonecatApp">
+  <head>
+    <meta charset="utf-8">
+    <title> Gallery</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+   
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    
+  
+  </head>
+  <body>
+
+    <div class="view-container">
+        <div ng-view class="view-frame">
+            
+        </div>
+    </div>
+     
+<div class="col-md-6 col-md-offset-3">
+    <h2>Login</h2>
+         <div class="login-container">
+            <form ng-submit="onLogin()" name="form" class="pure-form login-form" novalidate ng-controller="LoginCtrl">
+                <fieldset class="pure-group">
+                    <legend>Log In</legend>
+                    <div class="form-field">
+                        <input type="text" ng-focus="focus('username')"  ng-blur="blur('username')" ng-model="vm.username"
+                               name="username" class="pure-input-1" placeholder="Username" required ng-minlength="6">
+
+                        <div class="error-messages" ng-show="isMessagesVisible('username')" ng-messages="form.username.$error" ng-cloak>
+                            
+                        </div>
+                    </div>
+                    <div class="last-form-field">
+                        <input type="password" ng-focus="focus('password')"  ng-blur="blur('password')" ng-model="vm.password"
+                               name="password" class="pure-input-1" placeholder="Password" required ng-minlength="6"
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+                        <div class="error-messages" ng-show="isMessagesVisible('password')" ng-messages="form.password.$error" ng-cloak>
+                            
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="pure-button pure-input-1 pure-button-primary">Log In</button>
+                
+            
+      <script type="text/javascript" data-main="/resources/public/js/run-create-user-app" src="/resources/bower_components/requirejs/require.js"></script>
+      
+  </body>
+</html>
+
